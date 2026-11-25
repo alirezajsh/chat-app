@@ -14,6 +14,48 @@ export class UsersModule {
   private password:string;
   private email:string;
 
+  constructor(name: string, username: string, password: string, email: string);
+  constructor(data: {
+    id: number;
+    name: string;
+    username: string;
+    password: string;
+    email: string;
+    createdAt: Date;
+  });
+
+  constructor(
+    nameOrData:
+      | string
+      | {
+          id: number;
+          name: string;
+          username: string;
+          password: string;
+          email: string;
+          createdAt: Date;
+        },
+    username?: string,
+    password?: string,
+    email?: string,
+  ) {
+    if (typeof nameOrData === 'string') {
+      this.name = nameOrData;
+      this.username = username!;
+      this.password = password!;
+      this.email = email!;
+      this.createdAt = new Date();
+    } else {
+      this.id = nameOrData.id;
+      this.name = nameOrData.name;
+      this.username = nameOrData.username;
+      this.password = nameOrData.password;
+      this.email = nameOrData.email;
+      this.createdAt = nameOrData.createdAt;
+    }
+  }
+
+
   getCreatedAt(){return this.createdAt;}
   getId(){return this.id;}
   getName(){return this.name;}
